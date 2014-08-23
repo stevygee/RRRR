@@ -18,20 +18,22 @@ public class MoveScript : MonoBehaviour
 	/// </summary>
 	public Vector3 direction = new Vector3(-1, 0, 0);
 	
-	private Vector2 movement;
+	private Vector3 movement;
 	
 	void Update()
 	{
 		// 2 - Movement
 		movement = new Vector3(
-			speed.x * direction.x,
-			speed.y * direction.y,
-			speed.z * direction.z);
+			speed.x * direction.x * Time.deltaTime,
+			speed.y * direction.y * Time.deltaTime,
+			speed.z * direction.z * Time.deltaTime);
+
+		transform.Translate(movement);
 	}
-	
+
 	void FixedUpdate()
 	{
 		// Apply movement to the rigidbody
-		rigidbody.velocity = movement;
+		//rigidbody.velocity = movement;
 	}
 }

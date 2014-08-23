@@ -9,10 +9,10 @@ public class PlayerScript : MonoBehaviour
 	/// <summary>
 	/// 1 - The speed of the ship
 	/// </summary>
-	public Vector3 speed = new Vector3(50, 0, 50);
+	public float speed = 20;
 	
 	// 2 - Store the movement
-	private Vector3 movement;
+	private float movement;
 	
 	void Update()
 	{
@@ -21,16 +21,17 @@ public class PlayerScript : MonoBehaviour
 		float inputY = Input.GetAxis("Vertical");
 		
 		// 4 - Movement per direction
-		movement = new Vector3(
-			speed.x * inputX,
-			0,
-			0);
+		movement = speed * inputX;
 		
 	}
 	
 	void FixedUpdate()
 	{
 		// 5 - Move the game object
-		rigidbody.velocity = movement;
+		Vector3 movement3D = new Vector3(movement,
+		                             rigidbody.velocity.y,
+		                             rigidbody.velocity.z);
+
+		rigidbody.velocity = movement3D;
 	}
 }
