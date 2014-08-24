@@ -271,7 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50258706d140d3f4a8f6f1857cd66723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicLoop: {fileID: 8300000, guid: 05c50653b7b3f9348a007a8388010bae, type: 3}
+  menuLoop: {fileID: 8300000, guid: cad2d3f1bd62d8c458e769db6d426885, type: 3}
+  worldALoop: {fileID: 8300000, guid: 05c50653b7b3f9348a007a8388010bae, type: 3}
+  worldBLoop: {fileID: 8300000, guid: b16b514e6f8ffda48b79127465c7b7d8, type: 3}
 --- !u!1 &1146836833
 GameObject:
   m_ObjectHideFlags: 0

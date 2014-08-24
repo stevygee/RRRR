@@ -2,9 +2,14 @@
 using System.Collections;
 
 public class MusicManager : MonoBehaviour {
-	public AudioClip musicLoop;
-	private bool introMusicIsPlaying = true;
+	public AudioClip menuLoop;
+	public AudioClip worldALoop;
+	public AudioClip worldBLoop;
+
+	private bool transitionMusicIsPlaying = true;
 	private bool looping = false;
+	private bool isWorldA = true;
+	private bool isMenu = false;
 
 	void Start() {
 		PlayBackgroundMusic();
@@ -12,9 +17,9 @@ public class MusicManager : MonoBehaviour {
 	
 	void Update() {
 		if(!audio.isPlaying) {
-			introMusicIsPlaying = false;
+			transitionMusicIsPlaying = false;
 		}
-		if(!introMusicIsPlaying && !looping) {
+		if(!transitionMusicIsPlaying && !looping) {
 			looping = true;
 			LoopBackgroundMusic();
 		}
@@ -31,7 +36,16 @@ public class MusicManager : MonoBehaviour {
 		if(audio.isPlaying == true) {
 			audio.Stop();
 		}
-		audio.clip = musicLoop;
+		if(isMenu)
+		{
+			audio.clip = menuLoop;
+		} else {
+			if(isWorldA) {
+				audio.clip = worldALoop;
+			} else {
+				audio.clip = worldBLoop;
+			}
+		}
 		audio.loop = enabled;
 		audio.Play();
 	}
