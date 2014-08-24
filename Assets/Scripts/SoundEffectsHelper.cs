@@ -46,7 +46,7 @@ public class SoundEffectsHelper : MonoBehaviour
 	{
 		MakeSound(menuSound);
 	}
-	
+
 	/// <summary>
 	/// Play a given sound
 	/// </summary>

@@ -22,7 +22,9 @@ public class PlayerScript : MonoBehaviour
 		
 		// 4 - Movement per direction
 		movement = speed * inputX;
-		
+
+		if(inputY > 0)
+			MusicManager.Instance.SwitchWorld();
 	}
 	
 	void FixedUpdate()
