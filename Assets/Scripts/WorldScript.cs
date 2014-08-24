@@ -7,9 +7,13 @@ public class WorldScript : MonoBehaviour {
 	/// </summary>
 	public static WorldScript Instance;
 
+	private GameObject levelRoot;
+
 	public int currentState = 1;
 	private float stateTime = 0f;
-	private float transitionDuration = 2f;
+
+	public float startDuration = 3f;
+	public float transitionDuration = 2f;
 
 	private static int START = 0;
 	private static int WORLD_A = 1;
@@ -30,17 +34,47 @@ public class WorldScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		levelRoot = GameObject.FindGameObjectWithTag("LevelRoot");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		stateTime += Time.deltaTime;
+		Vector3 rotation = new Vector3();
 
-		if(stateTime >= transitionDuration)
+		if(currentState == START)
 		{
-			if(currentState == TRANSITION_TO_B) { switchState(WORLD_B); }
-			if(currentState == TRANSITION_TO_A) { switchState(WORLD_A); }
+			if(stateTime > startDuration)
+			{
+				switchState(WORLD_A);
+				MusicManager.Instance.SwitchWorldA(false);
+			}
+		}
+		else if(currentState == TRANSITION_TO_B)
+		{
+			if(stateTime > transitionDuration)
+			{
+				switchState(WORLD_B);
+				rotation = new Vector3(0, 0, 180f);
+			}
+			else
+			{
+				rotation = new Vector3(0, 0, stateTime * 0.5f * 180f);
+			}
+			levelRoot.transform.localEulerAngles = rotation;
+		}
+		else if(currentState == TRANSITION_TO_A)
+		{
+			if(stateTime > transitionDuration)
+			{
+				switchState(WORLD_A);
+				rotation = new Vector3(0, 0, 0f);
+			}
+			else
+			{
+				rotation = new Vector3(0, 0, stateTime * 0.5f * 180f + 180f);
+			}
+			levelRoot.transform.localEulerAngles = rotation;
 		}
 	}
 	
@@ -53,12 +87,12 @@ public class WorldScript : MonoBehaviour {
 		if( currentState.Equals(WORLD_A) )
 		{
 			switchState(TRANSITION_TO_B);
-			MusicManager.Instance.SwitchWorldB();
+			MusicManager.Instance.SwitchWorldB(true);
 		}
 		else if( currentState.Equals(WORLD_B) )
 		{
 			switchState(TRANSITION_TO_A);
-			MusicManager.Instance.SwitchWorldA();
+			MusicManager.Instance.SwitchWorldA(true);
 		}
 	}
 

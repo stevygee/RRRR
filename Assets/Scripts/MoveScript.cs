@@ -28,7 +28,8 @@ public class MoveScript : MonoBehaviour
 			speed.y * direction.y * Time.deltaTime,
 			speed.z * direction.z * Time.deltaTime);
 
-		transform.Translate(movement);
+		if(WorldScript.Instance.currentState != 0)
+			transform.Translate(movement);
 	}
 
 	void FixedUpdate()

@@ -21,7 +21,8 @@ public class PlayerScript : MonoBehaviour
 		//float inputY = Input.GetAxis("Vertical");
 		
 		// 4 - Movement per direction
-		movement = speed * inputX;
+		if(WorldScript.Instance.currentState != 0)
+			movement = speed * inputX;
 
 		// 5 - World switch
 		bool worldSwitch = Input.GetButton("Fire1");
@@ -30,7 +31,6 @@ public class PlayerScript : MonoBehaviour
 		
 		if (worldSwitch)
 		{
-			//MusicManager.Instance.SwitchWorld();
 			WorldScript.Instance.switchWorld();
 		}
 	}
@@ -43,7 +43,6 @@ public class PlayerScript : MonoBehaviour
 		if( rigidbody.position.x <= 3.5f && rigidbody.position.x >= -3.5f )
 		{
 			movement3D = new Vector3(movement, rigidbody.velocity.y, rigidbody.velocity.z);
-
 		}
 		else
 		{

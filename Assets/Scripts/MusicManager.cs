@@ -12,10 +12,10 @@ public class MusicManager : MonoBehaviour {
 	public AudioClip worldBLoop;
 	public AudioClip worldChange;
 
-	private bool transitionMusicIsPlaying = true;
-	private bool looping = false;
+	private bool transitionMusicIsPlaying = false;
+	private bool looping = true;
 	private bool isWorldA = true;
-	private bool isMenu = false;
+	private bool isMenu = true;
 
 	void Awake()
 	{
@@ -66,25 +66,43 @@ public class MusicManager : MonoBehaviour {
 		audio.Play();
 	}
 
-	public void SwitchWorldA() {
+	public void SwitchWorldA(bool transition) {
 		isWorldA = true;
-		SwitchWorld();
+		isMenu = false;
+		SwitchWorld(true, transition);
 	}
 
-	public void SwitchWorldB() {
+	public void SwitchWorldB(bool transition) {
 		isWorldA = false;
-		SwitchWorld();
+		isMenu = false;
+		SwitchWorld(false, transition);
 	}
 	
-	void SwitchWorld() {
+	void SwitchWorld(bool worldA, bool transition) {
 		if(audio.isPlaying == true) {
 			audio.Stop();
 		}
-		audio.clip = worldChange;
-		audio.loop = false;
+		if(transition)
+		{
+			audio.clip = worldChange;
+			audio.loop = false;
+		}
+		else
+		{
+			if(worldA)
+			{
+				audio.clip = worldALoop;
+			}
+			else
+			{
+				audio.clip = worldBLoop;
+			}
+		}
 		audio.Play();
 
-		transitionMusicIsPlaying = true;
-		looping = false;
+		if(transition) {
+			transitionMusicIsPlaying = true;
+			looping = false;
+		}
 	}
 }
