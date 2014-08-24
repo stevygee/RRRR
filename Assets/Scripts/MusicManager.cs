@@ -66,9 +66,17 @@ public class MusicManager : MonoBehaviour {
 		audio.Play();
 	}
 
-	public void SwitchWorld() {
-		isWorldA = !isWorldA;
+	public void SwitchWorldA() {
+		isWorldA = true;
+		SwitchWorld();
+	}
 
+	public void SwitchWorldB() {
+		isWorldA = false;
+		SwitchWorld();
+	}
+	
+	void SwitchWorld() {
 		if(audio.isPlaying == true) {
 			audio.Stop();
 		}
